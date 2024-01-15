@@ -1,0 +1,52 @@
+// SideBar.module.scss
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+@import "../../assets/styles/setup/mixins.scss";
+@import "../../assets/styles/setup/mixins.scss";
+
+.sideBarContainer {
+  color: black;
+  @include flex-container(column, start, start, 24px);
+  padding: 20px;
+  border-right: 1px solid rgb(219, 219, 219);
+  width: 20vw;
+  height: 100vh;
+  h1 {
+    font-family: "Dancing Script", cursive;
+    font-size: 2em;
+    margin: 30px 0;
+  }
+
+  a {
+    width: 100%;
+    text-decoration: none;
+
+  }
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    color: black;
+
+    &:hover {
+      background-color: #cccccc29;
+    }
+
+    svg {
+      font-size: 1.5em;
+      margin-right: 10px;
+    }
+
+    img {
+      width: 1.5em;
+      height: 1.5em;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    p {
+      font-size: 1em;
+      margin: 0;
+    }
+  }
+}

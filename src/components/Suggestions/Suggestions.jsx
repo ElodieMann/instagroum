@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AuthenticationPages = () => {
+const Suggestions = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const AuthenticationPages = () => {
     );
 };
 
-export default AuthenticationPages;
+export default Suggestions;

@@ -14,7 +14,8 @@ async function query(entityType) {
   async function get(entityType, identifier) {
     try {
       const entities = await query(entityType);
-      const entity = entities.find((entit) => entit.id === identifier);
+
+      const entity = entities.find((entit) => entit.by._id === identifier);
       if (!entity) throw new Error("Cannot find");
       return entity;
     } catch (e) {

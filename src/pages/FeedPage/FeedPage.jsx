@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { storyService } from "../../services/story.service.js";
+import StoryList from "../../components/StoryList/StoryList.jsx";
+
 
 const FeedPage = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  const [stories, setStories] = useState([]);
+  useEffect(() => {
+    getData();
+    
+}, []);
+
+  const getData = async () => {
+    const data = await storyService.getAllStories();
+    setStories(data);
+  };
+  return (
+    <StoryList stories={stories}/>
+  );
 };
 
 export default FeedPage;

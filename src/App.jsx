@@ -17,7 +17,7 @@ function App() {
       <SideBar />
 
       <Routes>
-        <Route exact path="/" component={FeedPage} />
+        <Route exact path="/" element={<FeedPage />} />
         <Route path="/:username" component={ProfilePage} />
         <Route path="/explore" component={ExplorePage} />
         <Route path="/p/:postId" component={PostDetailPage} />

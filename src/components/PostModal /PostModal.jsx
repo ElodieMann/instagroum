@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./PostModal.module.scss";
 import { user, storyService } from "../../services/story.service.js";
-import FooterStory from "../FooterStory/FooterStory.jsx";
+import ReactionsStory from "../ReactionsStory/ReactionsStory.jsx";
+import CommentStory from "../CommentStory/CommentStory.jsx";
 
 const PostModal = ({ isModalOpen, onClose, story }) => {
+  const likeCount = story.likedBy.length;
+
   if (!isModalOpen) return null;
 
   return (
@@ -34,7 +37,16 @@ const PostModal = ({ isModalOpen, onClose, story }) => {
               </li>
             ))}
           </ul>
-        <FooterStory story={story} />
+
+          <div className={styles.footer}>
+            <div>
+              <ReactionsStory story={story} />
+              <p>
+                {likeCount} {likeCount > 1 ? "likes" : "like"}
+              </p>
+            </div>
+            <CommentStory story={story} />
+          </div>
         </div>
       </div>
     </div>

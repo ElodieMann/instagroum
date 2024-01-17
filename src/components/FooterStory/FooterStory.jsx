@@ -1,40 +1,18 @@
 import React, { useState } from "react";
 
-import { user, storyService } from "../../services/story.service.js";
 import PostModal from "../PostModal /PostModal.jsx";
+import ReactionsStory from "../ReactionsStory/ReactionsStory.jsx";
+import CommentStory from "../CommentStory/CommentStory.jsx";
 
 import styles from "./FooterStory.module.scss";
-import { utilService } from "../../services/util.service.js";
-import Reactions from "../ReactionsStory/ReactionsStory.jsx";
 
 const FooterStory = ({ story }) => {
   const likeCount = story.likedBy.length;
   const commentCount = story.comments.length;
 
-  const [commentText, setCommentText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCommentChange = (event) => {
-    setCommentText(event.target.value);
-  };
 
-  const handleAddComment = async (event) => {
-    if (event.key === "Enter" && commentText.trim() !== "") {
-      const newComment = {
-        by: {
-          fullname: user.fullname,
-          imgUrl: user.imgUrl,
-          _id: user._id,
-        },
-        id: utilService.makeId(),
-        txt: commentText,
-      };
-
-      await storyService.addComment(story.by._id, newComment);
-
-      setCommentText("");
-    }
-  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -42,7 +20,7 @@ const FooterStory = ({ story }) => {
   return (
     <footer className={styles.footer}>
 
-      <Reactions setIsModalOpen={setIsModalOpen} story={story}/>
+      <ReactionsStory setIsModalOpen={setIsModalOpen} story={story}/>
 
       {likeCount > 0 && (
         <div className={styles.likeSection}>
@@ -80,15 +58,7 @@ const FooterStory = ({ story }) => {
         </div>
       )}
 
-      <div className={styles.addCommentSection}>
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          value={commentText}
-          onChange={handleCommentChange}
-          onKeyDown={handleAddComment}
-        />
-      </div>
+      <CommentStory story={story} />
 
       <div className={`modal ${isModalOpen ? "open" : ""}`}>
         <PostModal

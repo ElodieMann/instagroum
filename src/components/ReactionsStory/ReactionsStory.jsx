@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -6,43 +6,47 @@ import {
   faPaperPlane,
   faBookmark,
 } from "@fortawesome/free-regular-svg-icons";
-import {  storyService } from "../../services/story.service.js";
+import { storyService } from "../../services/story.service.js";
 
-import styles from './ReactionsStory.module.scss'
+import styles from "./ReactionsStory.module.scss";
 
-const Reactions = ({setIsModalOpen, story}) => {
-    const [liked, setLiked] = useState(false);
+const ReactionsStory = ({ setIsModalOpen, story }) => {
+  const [liked, setLiked] = useState(false);
+ 
+  useEffect(() => {
+    const likedInLocalStorage = localStorage.getItem(`liked_${story.by._id}`);
+    if (likedInLocalStorage === "true") {
+      setLiked(true);
+    }
+  }, [story.by._id]);
 
-    const handleLikeClick = async () => {
-  
-        if (!liked) {
-          await storyService.toggleLike(story.by._id);
-        } else {
-          await storyService.toggleLike(story.by._id);
-        }
-    
-        setLiked(!liked);
-      };
-    
-      const openModal = () => {
-        setIsModalOpen(true);
-      };
+  const handleLikeClick = async () => {
+    setLiked(!liked);
 
-    return (
-             <div className={styles.reactions}>
-          <div>
-            <FontAwesomeIcon
-              icon={faHeart}
-              style={{ color: liked ? "red" : "inherit" }}
-              onClick={handleLikeClick}
-            />
+    localStorage.setItem(`liked_${story.by._id}`, !liked);
 
-            <FontAwesomeIcon icon={faComment} onClick={openModal} />
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </div>
-          <FontAwesomeIcon icon={faBookmark} />
-        </div>
-    );
+    await storyService.toggleLike(story.by._id);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  return (
+    <div className={styles.reactions}>
+      <div>
+        <FontAwesomeIcon
+          icon={faHeart}
+          style={{ color: liked ? "red" : "inherit" }}
+          onClick={handleLikeClick}
+        />
+
+        <FontAwesomeIcon icon={faComment} onClick={openModal} />
+        <FontAwesomeIcon icon={faPaperPlane} />
+      </div>
+      <FontAwesomeIcon icon={faBookmark} />
+    </div>
+  );
 };
 
-export default Reactions;
+export default ReactionsStory;

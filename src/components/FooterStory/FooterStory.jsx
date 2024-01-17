@@ -20,10 +20,6 @@ const FooterStory = ({story}) => {
     const [liked, setLiked] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
   
-    const isLikedByCurrentUser = story.likedBy.some(
-      (likedUser) => likedUser._id === user._id
-    );
-  
     const handleCommentChange = (event) => {
       setCommentText(event.target.value);
     };
@@ -42,7 +38,6 @@ const FooterStory = ({story}) => {
     };
   
     const handleLikeClick = async () => {
-      console.log(story.by._id);
   
       if (!liked) {
         await storyService.toggleLike(story.by._id);
@@ -57,7 +52,6 @@ const FooterStory = ({story}) => {
       setIsModalOpen(true);
     };
   
-    // Fonction pour fermer la modal
     const closeModal = () => {
       setIsModalOpen(false);
     };

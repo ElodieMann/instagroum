@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { user } from "../../services/story.service.js";
 
-const SideBar = () => {
+const SideBar = ({ onShowPostUpload }) => {
   return (
     <div className={styles.sideBarContainer}>
       <h1>Instagroum</h1>
@@ -40,13 +40,11 @@ const SideBar = () => {
           <p>Notifications</p>
         </div>
       </Link>
-      <Link to={"/createstory"}>
-        <div className={styles.link}>
-          <FontAwesomeIcon icon={faPlus} />
-          <p>Create</p>
-        </div>
-      </Link>
-      <Link to={"/:username"}>
+      <div className={styles.link} onClick={onShowPostUpload}>
+        <FontAwesomeIcon icon={faPlus} />
+        <p>Create</p>
+      </div>
+      <Link to={"/profile"}>
         <div className={styles.link}>
           <img src={user.imgUrl} alt="" />
           <p>Profile</p>

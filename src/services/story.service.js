@@ -132,8 +132,6 @@ async function addComment(storyId, newComment) {
     console.log("story", story);
     if (!story) throw new Error("Story not found");
 
- 
-
     const comment = {
       id: utilService.makeId(),
       by: newComment.by,
@@ -157,18 +155,20 @@ async function toggleLike(storyId) {
     const userId = {
       _id: user._id,
       fullname: user.fullname,
-      imgUrl: user.imgUrl
-    }
-
+      imgUrl: user.imgUrl,
+    };
+    
     const story = await getById(storyId);
-    console.log(story);
     if (!story) throw new Error("Story not found");
 
     if (!story.likedBy) {
       story.likedBy = [];
     }
 
-    const userIndex = story.likedBy.findIndex((likedUser) => likedUser._id === userId._id);
+    const userIndex = story.likedBy.findIndex(
+      (likedUser) => likedUser._id === userId._id
+    );
+
 
     if (userIndex === -1) {
       story.likedBy.push(userId);
@@ -185,8 +185,6 @@ async function toggleLike(storyId) {
   }
 }
 
-
-
 export const storyService = {
   getAllStories,
   newStory,
@@ -194,5 +192,5 @@ export const storyService = {
   updateStory,
   removeStory,
   addComment,
-  toggleLike
+  toggleLike,
 };

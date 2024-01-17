@@ -37,8 +37,8 @@ async function query(entityType) {
   async function put(entityType, updateEntity) {
     try {
       let entities = await query(entityType);
-      const idx = entities.findIndex((entity) => entity.id === updateEntity.id);
-  
+      const idx = entities.findIndex((entity) => entity.by._id === updateEntity.by._id);
+      
       if (idx < 0) throw new Error("Cannot find");
       entities[idx] = updateEntity;
       utilService.saveToStorage(entityType, entities);

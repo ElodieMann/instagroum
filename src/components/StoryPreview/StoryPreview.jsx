@@ -1,15 +1,6 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHeart,
-  faComment,
-  faPaperPlane,
-  faBookmark,
-} from "@fortawesome/free-regular-svg-icons";
-import { user, storyService } from "../../services/story.service.js";
+import React from "react";
 
 import styles from "./StoryPreview.module.scss";
-import PostModal from "../PostModal /PostModal.jsx";
 import FooterStory from "../FooterStory/FooterStory.jsx";
 
 const StoryPreview = ({ story }) => {

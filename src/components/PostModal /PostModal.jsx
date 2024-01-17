@@ -29,7 +29,7 @@ const PostModal = ({ isModalOpen, onClose, story }) => {
               <li>
                 <img src={comment.by.imgUrl} alt="Story" />
 
-                <p>{comment.by.fullname}</p>
+                <p className={styles.username}>{comment.by.fullname}</p>
                 <p>{comment.txt}</p>
               </li>
             ))}

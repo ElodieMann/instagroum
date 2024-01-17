@@ -1,0 +1,15 @@
+@import "../../assets/styles/setup/mixins.scss";
+@import "../../assets/styles/setup/variables.scss";
+
+.reactions {
+    @include flex-container(row, space-between, center, 0px);
+    width: 100%;
+    font-size: 22px;
+
+    margin: 12px 0;
+
+    div {
+      width: 50%;
+      @include flex-container(row, start, center, 15px);
+    }
+  }

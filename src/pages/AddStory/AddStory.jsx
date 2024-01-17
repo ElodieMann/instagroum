@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import styles from './AddStory.module.scss';
+import React, { useState } from "react";
+import styles from "./AddStory.module.scss";
+import { storyService, user as userService } from "../../services/story.service.js";
 
 const AddStory = ({ onClose }) => {
-  const [caption, setCaption] = useState('');
+  const [caption, setCaption] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);
@@ -14,43 +15,90 @@ const AddStory = ({ onClose }) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file));  
+      setImageUrl(URL.createObjectURL(file));  
     } else {
-      setPreviewUrl(null);  
+      setImageUrl(null);  
     }
   };
+  
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Caption:', caption);
-    console.log('Selected File:', selectedFile);
-   
-    setCaption('');
-    setSelectedFile(null);
-    setPreviewUrl(null);
-    onClose();  
+  const blobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(blob);
+    });
   };
+  
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!caption || !selectedFile) {
+      alert("Please add both a caption and an image.");
+      return;
+    }
+  
+    const imageBase64 = await blobToBase64(selectedFile);
+  
+    const newStory = {
+      ...storyService.getEmptyStory(),
+      txt: caption,
+      imgUrl: imageBase64,  
+      by: userService,
+    };
+  
+    try {
+      await storyService.newStory(newStory);
+      alert("Story added successfully!");
+  
+      setCaption("");
+      setSelectedFile(null);
+      onClose();
+    } catch (error) {
+      console.error("Error adding new story:", error);
+      alert("Failed to add the story.");
+    }
+  };
+  
+  
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         <header className={styles.modalHeader}>
-          <button className={styles.closeButton} onClick={onClose}>←</button>
+          <button className={styles.closeButton} onClick={onClose}>
+            ←
+          </button>
           <h1 className={styles.modalTitle}>Create new post</h1>
-          <button className={styles.shareButton} onClick={handleSubmit}>Share</button>
+          <button className={styles.shareButton} onClick={handleSubmit}>
+            Share
+          </button>
         </header>
         <main>
           <div className={styles.uploadSection}>
-        
-            {previewUrl ? <img src={previewUrl} alt="Preview" className={styles.imagePreview} /> :     <label className={styles.fileInputLabel}>
-              Upload Image
-              <input
-                type="file"
-                className={styles.fileInput}
-                onChange={handleFileChange}
-                accept="image/*,video/*"
+            {imageUrl ? (
+              <img
+                src={imageUrl}
+                alt="Preview"
+                className={styles.imagePreview}
               />
-            </label>}
+            ) : (
+              <label className={styles.fileInputLabel}>
+                Upload Image
+                <input
+                  type="file"
+                  className={styles.fileInput}
+                  onChange={handleFileChange}
+                  accept="image/*,video/*"
+                />
+              </label>
+            )}
           </div>
           <div className={styles.modalContent}>
             <div className={styles.userInfo}>

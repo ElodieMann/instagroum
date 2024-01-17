@@ -8,7 +8,7 @@ const FeedPage = () => {
   useEffect(() => {
     getData();
     
-}, []);
+}, [stories]);
 
   const getData = async () => {
     const data = await storyService.getAllStories();

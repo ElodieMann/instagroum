@@ -116,6 +116,7 @@ async function getById(storyId) {
 }
 
 function newStory(story) {
+  console.log(story);
   return storageService.post(STORAGE_KEY, story);
 }
 
@@ -185,6 +186,22 @@ async function toggleLike(storyId) {
   }
 }
 
+function getEmptyStory() {
+  return {
+    _id: utilService.makeId(),
+    txt: "",
+    imgUrl: [],
+    comments: [],
+    likedBy: [],
+    by: {
+      _id: "",
+      username: "",
+      fullname: "",
+      imgUrl: ""
+    },
+  }
+}
+
 export const storyService = {
   getAllStories,
   newStory,
@@ -193,4 +210,5 @@ export const storyService = {
   removeStory,
   addComment,
   toggleLike,
+  getEmptyStory
 };

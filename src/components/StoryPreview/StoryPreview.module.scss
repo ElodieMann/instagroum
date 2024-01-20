@@ -12,7 +12,6 @@
     .userInfo {
       @include flex-container(row, start, start, 10px);
 
-    
       .userAvatar {
         width: 40px;
         height: 40px;
@@ -25,6 +24,16 @@
 
         .username {
           font-weight: bold;
+          @include flex-container(row, start, center, 8px);
+
+          div {
+            @include flex-container(row, start, center, 8px);
+            color: grey;
+            font-size: 14px;
+            > :first-child {
+              font-size: 5px;
+            }
+          }
         }
 
         .location {
@@ -40,6 +49,4 @@
     height: 585px;
     object-fit: cover;
   }
-
- 
 }

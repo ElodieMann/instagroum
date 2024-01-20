@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styles from "./AddStory.module.scss";
-import { storyService, user as userService } from "../../services/story.service.js";
+import {
+  storyService,
+  user as userService,
+} from "../../services/story.service.js";
 
 const AddStory = ({ onClose }) => {
   const [caption, setCaption] = useState("");
@@ -15,12 +18,24 @@ const AddStory = ({ onClose }) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setImageUrl(URL.createObjectURL(file));  
+      setImageUrl(URL.createObjectURL(file));
     } else {
-      setImageUrl(null);  
+      setImageUrl(null);
     }
   };
-  
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setImageUrl(URL.createObjectURL(file));
+    }
+  };
 
   const blobToBase64 = (blob) => {
     return new Promise((resolve, reject) => {
@@ -34,8 +49,6 @@ const AddStory = ({ onClose }) => {
       reader.readAsDataURL(blob);
     });
   };
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,21 +56,21 @@ const AddStory = ({ onClose }) => {
       alert("Please add both a caption and an image.");
       return;
     }
-  
+
     const imageBase64 = await blobToBase64(selectedFile);
-    
+
     try {
-      const emptyStory = await storyService.getEmptyStory();  
+      const emptyStory = await storyService.getEmptyStory();
       const newStory = {
-        ...emptyStory,   
-        txt: caption,   
-        imgUrl: imageBase64, 
+        ...emptyStory,
+        txt: caption,
+        imgUrl: imageBase64,
         createdAt: new Date(),
       };
-      
+
       await storyService.newStory(newStory);
       alert("Story added successfully!");
-  
+
       setCaption("");
       setSelectedFile(null);
       setImageUrl(null);
@@ -67,9 +80,6 @@ const AddStory = ({ onClose }) => {
       alert("Failed to add the story.");
     }
   };
-  
-  
-  
 
   return (
     <div className={styles.modalOverlay}>
@@ -84,7 +94,11 @@ const AddStory = ({ onClose }) => {
           </button>
         </header>
         <main>
-          <div className={styles.uploadSection}>
+          <div
+            className={styles.uploadSection}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -93,7 +107,7 @@ const AddStory = ({ onClose }) => {
               />
             ) : (
               <label className={styles.fileInputLabel}>
-                Upload Image
+          
                 <input
                   type="file"
                   className={styles.fileInput}

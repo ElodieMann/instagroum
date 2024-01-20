@@ -1,35 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHeart,
-  faComment,
-  faPaperPlane,
-  faBookmark,
-} from "@fortawesome/free-regular-svg-icons";
-import { storyService } from "../../services/story.service.js";
-
+import { faHeart, faComment, faPaperPlane, faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { storyService, user } from "../../services/story.service.js";
 import styles from "./ReactionsStory.module.scss";
 
-const ReactionsStory = ({ setIsModalOpen, story }) => {
-  const [liked, setLiked] = useState(false);
- 
-  useEffect(() => {
-    const likedInLocalStorage = localStorage.getItem(`liked_${story.by._id}`);
-    if (likedInLocalStorage === "true") {
-      setLiked(true);
-    }
-  }, [story.by._id]);
+const ReactionsStory = ({ isModalOpen, setIsModalOpen, story, setChange }) => {
+  const isUserLike = story?.likedBy?.some((like) => like._id === user._id);
+  const [liked, setLiked] = useState(isUserLike);
 
   const handleLikeClick = async () => {
-    setLiked(!liked);
-
-    localStorage.setItem(`liked_${story.by._id}`, !liked);
-
-    await storyService.toggleLike(story.by._id);
+    try {
+      await storyService.toggleLike(story._id);
+      setLiked(!liked); 
+      setChange(new Date())
+    } catch (error) {
+      console.error("Error toggling like:", error);
+    }
   };
 
   const openModal = () => {
-    setIsModalOpen(true);
+    if (!isModalOpen) {  
+      setIsModalOpen(true);
+    }
   };
 
   return (
@@ -40,7 +32,6 @@ const ReactionsStory = ({ setIsModalOpen, story }) => {
           style={{ color: liked ? "red" : "inherit" }}
           onClick={handleLikeClick}
         />
-
         <FontAwesomeIcon icon={faComment} onClick={openModal} />
         <FontAwesomeIcon icon={faPaperPlane} />
       </div>

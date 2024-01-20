@@ -5,10 +5,10 @@
 
 .sideBarContainer {
   color: black;
-  @include flex-container(column, start, start, 24px);
-  padding: 20px;
+  @include flex-container(column, start, start, 19px);
+  padding: 0 20px;
   border-right: 1px solid rgb(219, 219, 219);
-  width: 20vw;
+  width: 17vw;
   height: 100vh;
   h1 {
     font-family: "Dancing Script", cursive;
@@ -24,7 +24,7 @@
   .link {
     display: flex;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 0; 
     color: black;
 
     &:hover {

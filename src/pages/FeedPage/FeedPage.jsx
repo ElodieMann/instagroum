@@ -5,17 +5,24 @@ import StoryList from "../../components/StoryList/StoryList.jsx";
 
 const FeedPage = () => {
   const [stories, setStories] = useState([]);
+
+  const [change, setChange] = useState('')
   useEffect(() => {
     getData();
     
-}, [stories]);
+}, [change]);
 
-  const getData = async () => {
-    const data = await storyService.getAllStories();
-    setStories(data);
-  };
+
+const getData = async () => {
+  let data = await storyService.getAllStories();
+  
+  data = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  setStories(data);
+};
+
   return (
-    <StoryList stories={stories}/>
+    <StoryList stories={stories} setChange={setChange}/>
   );
 };
 

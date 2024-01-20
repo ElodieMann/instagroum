@@ -45,26 +45,29 @@ const AddStory = ({ onClose }) => {
     }
   
     const imageBase64 = await blobToBase64(selectedFile);
-  
-    const newStory = {
-      ...storyService.getEmptyStory(),
-      txt: caption,
-      imgUrl: imageBase64,  
-      by: userService,
-    };
-  
+    
     try {
+      const emptyStory = await storyService.getEmptyStory();  
+      const newStory = {
+        ...emptyStory,   
+        txt: caption,   
+        imgUrl: imageBase64, 
+        createdAt: new Date(),
+      };
+      
       await storyService.newStory(newStory);
       alert("Story added successfully!");
   
       setCaption("");
       setSelectedFile(null);
+      setImageUrl(null);
       onClose();
     } catch (error) {
       console.error("Error adding new story:", error);
       alert("Failed to add the story.");
     }
   };
+  
   
   
 

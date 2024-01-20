@@ -14,8 +14,8 @@ async function query(entityType) {
   async function get(entityType, identifier) {
     try {
       const entities = await query(entityType);
-
-      const entity = entities.find((entit) => entit.by._id === identifier);
+      const entity = entities.find((entit) => entit._id === identifier);
+      console.log(entities);
       if (!entity) throw new Error("Cannot find");
       return entity;
     } catch (e) {
@@ -37,7 +37,7 @@ async function query(entityType) {
   async function put(entityType, updateEntity) {
     try {
       let entities = await query(entityType);
-      const idx = entities.findIndex((entity) => entity.by._id === updateEntity.by._id);
+      const idx = entities.findIndex((entity) => entity._id === updateEntity._id);
       
       if (idx < 0) throw new Error("Cannot find");
       entities[idx] = updateEntity;

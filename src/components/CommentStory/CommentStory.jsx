@@ -5,7 +5,7 @@ import { utilService } from "../../services/util.service.js";
 import styles from "./CommentStory.module.scss";
 
 
-const CommentStory = ({story}) => {
+const CommentStory = ({story, setChange}) => {
     const [commentText, setCommentText] = useState("");
 
     const handleCommentChange = (event) => {
@@ -22,11 +22,13 @@ const CommentStory = ({story}) => {
             },
             id: utilService.makeId(),
             txt: commentText,
+            likedBy: []
           };
     
-          await storyService.addComment(story.by._id, newComment);
+          await storyService.addComment(story._id, newComment);
     
           setCommentText("");
+          setChange(new Date())
         }
       };
   return (

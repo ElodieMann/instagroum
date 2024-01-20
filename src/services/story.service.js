@@ -48,61 +48,6 @@ async function getAllStories() {
   return await storageService.query(STORAGE_KEY);
 }
 
-export const story = {
-  _id: "s101",
-  txt: "Best trip ever",
-  imgUrl: "http://some-img",
-  by: {
-    _id: "u101",
-    fullname: "Ulash Ulashi",
-    imgUrl: "http://some-img",
-  },
-  loc: {
-    lat: 11.11,
-    lng: 22.22,
-    name: "Tel Aviv",
-  },
-  comments: [
-    {
-      id: "c1001",
-      by: {
-        _id: "u105",
-        fullname: "Bob",
-        imgUrl: "http://some-img",
-      },
-      txt: "good one!",
-      likedBy: [
-        {
-          _id: "u105",
-          fullname: "Bob",
-          imgUrl: "http://some-img",
-        },
-      ],
-    },
-    {
-      id: "c1002",
-      by: {
-        _id: "u106",
-        fullname: "Dob",
-        imgUrl: "http://some-img",
-      },
-      txt: "not good!",
-    },
-  ],
-  likedBy: [
-    {
-      _id: "u105",
-      fullname: "Bob",
-      imgUrl: "http://some-img",
-    },
-    {
-      _id: "u106",
-      fullname: "Dob",
-      imgUrl: "http://some-img",
-    },
-  ],
-  tags: ["fun", "romantic"],
-};
 
 async function getById(storyId) {
   try {
@@ -116,7 +61,6 @@ async function getById(storyId) {
 }
 
 function newStory(story) {
-  console.log(story);
   return storageService.post(STORAGE_KEY, story);
 }
 
@@ -130,7 +74,7 @@ function removeStory(storyId) {
 async function addComment(storyId, newComment) {
   try {
     const story = await getById(storyId);
-    console.log("story", story);
+    console.log(story);
     if (!story) throw new Error("Story not found");
 
     const comment = {
@@ -153,12 +97,13 @@ async function addComment(storyId, newComment) {
 
 async function toggleLike(storyId) {
   try {
+
     const userId = {
       _id: user._id,
       fullname: user.fullname,
       imgUrl: user.imgUrl,
     };
-    
+
     const story = await getById(storyId);
     if (!story) throw new Error("Story not found");
 
@@ -169,7 +114,6 @@ async function toggleLike(storyId) {
     const userIndex = story.likedBy.findIndex(
       (likedUser) => likedUser._id === userId._id
     );
-
 
     if (userIndex === -1) {
       story.likedBy.push(userId);
@@ -187,20 +131,24 @@ async function toggleLike(storyId) {
 }
 
 function getEmptyStory() {
+  
   return {
     _id: utilService.makeId(),
     txt: "",
-    imgUrl: [],
-    comments: [],
-    likedBy: [],
     by: {
-      _id: "",
-      username: "",
-      fullname: "",
-      imgUrl: ""
+      _id: user._id,
+      fullname: user.fullname,
+      imgUrl: user.imgUrl,
     },
-  }
+    comments: [],
+    imgUrl: "",
+    likedBy: [],
+    tags: [],
+  };
 }
+
+
+
 
 export const storyService = {
   getAllStories,
@@ -210,5 +158,5 @@ export const storyService = {
   removeStory,
   addComment,
   toggleLike,
-  getEmptyStory
+  getEmptyStory,
 };

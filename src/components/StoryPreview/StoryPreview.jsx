@@ -3,8 +3,7 @@ import React from "react";
 import styles from "./StoryPreview.module.scss";
 import FooterStory from "../FooterStory/FooterStory.jsx";
 
-const StoryPreview = ({ story }) => {
-
+const StoryPreview = ({ story, setChange }) => {
   return (
     <div className={styles?.storyPreview}>
       <header className={styles?.header}>
@@ -23,7 +22,7 @@ const StoryPreview = ({ story }) => {
       <img className={styles.storyImage} src={story.imgUrl} alt="Story" />
   
 
-     <FooterStory story={story}/>
+     <FooterStory story={story} setChange={setChange}/>
     </div>
   );
 };

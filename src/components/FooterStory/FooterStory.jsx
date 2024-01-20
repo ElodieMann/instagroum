@@ -6,21 +6,20 @@ import CommentStory from "../CommentStory/CommentStory.jsx";
 
 import styles from "./FooterStory.module.scss";
 
-const FooterStory = ({ story }) => {
-  const likeCount = story.likedBy.length;
-  const commentCount = story.comments.length;
+const FooterStory = ({ story, setChange }) => {
+  const likeCount = story?.likedBy?.length;
+  const commentCount = story?.comments?.length;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
   return (
     <footer className={styles.footer}>
-
-      <ReactionsStory setIsModalOpen={setIsModalOpen} story={story}/>
+      <ReactionsStory
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        story={story}
+        setChange={setChange}
+      />
 
       {likeCount > 0 && (
         <div className={styles.likeSection}>
@@ -40,7 +39,7 @@ const FooterStory = ({ story }) => {
         </div>
       )}
       <p className={styles.storyText}>
-        <span>{story.by.fullname}</span> {story.txt}
+        <span>{story?.by?.fullname}</span> {story?.txt}
       </p>
 
       {commentCount > 0 && (
@@ -51,21 +50,17 @@ const FooterStory = ({ story }) => {
             </p>
           )}
           {story.comments.slice(0, 2).map((comment) => (
-            <p key={comment.id}>
-              <span>{comment.by.fullname}</span> {comment.txt}
+            <p key={comment?.id}>
+              <span>{comment?.by?.fullname}</span> {comment?.txt}
             </p>
           ))}
         </div>
       )}
 
-      <CommentStory story={story} />
+      <CommentStory story={story} setChange={setChange} />
 
       <div className={`modal ${isModalOpen ? "open" : ""}`}>
-        <PostModal
-          isModalOpen={isModalOpen}
-          onClose={closeModal}
-          story={story}
-        />
+        <PostModal setIsModalOpen={setIsModalOpen} setChange={setChange}  isModalOpen={isModalOpen} story={story} />
       </div>
     </footer>
   );

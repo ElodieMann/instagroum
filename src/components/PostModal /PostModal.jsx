@@ -1,33 +1,41 @@
 import React, { useState } from "react";
 import styles from "./PostModal.module.scss";
-import { user, storyService } from "../../services/story.service.js";
 import ReactionsStory from "../ReactionsStory/ReactionsStory.jsx";
 import CommentStory from "../CommentStory/CommentStory.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { setOpenModal } from "../../redux/modalStory/index.js";
 
-const PostModal = ({ setIsModalOpen, isModalOpen, story, setChange }) => {
+const PostModal = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const { open, storyOpen } = useSelector(
+    (state) => state.modalStory.isModalOpen
+  );
+
   const [shouldFocusCommentInput, setShouldFocusCommentInput] = useState(false);
 
   const [isCommentClick, setIsCommentClick] = useState(false);
-  const likeCount = story?.likedBy?.length;
-
-  if (!isModalOpen) return null;
+  const likeCount = storyOpen?.likedBy?.length;
 
   const focusCommentInput = () => {
     setShouldFocusCommentInput(true);
   };
   const closeModal = () => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-    }
-
+    dispatch(
+      setOpenModal({
+        open: false,
+        storyOpen: {},
+      })
+    );
   };
-  return (
-    <div className={styles.modalOverlay}>
+
+  return open ? (
+    <div className={styles.modalOverlay} onClick={closeModal}>
       <div className={styles.modalContent}>
         <button className={styles.modalClose} onClick={closeModal}>
           &times;
         </button>
-        <img src={story?.imgUrl} alt="Story" />
+        <img src={storyOpen?.imgUrl} alt="Story" />
         <div className={styles.rightSide}>
           <div className={styles.user}>
             <img src={user?.imgUrl} alt="Story" />
@@ -37,10 +45,10 @@ const PostModal = ({ setIsModalOpen, isModalOpen, story, setChange }) => {
             <img src={user.imgUrl} alt="Story" />
 
             <p>{user?.username}</p>
-            <p>{story.txt}</p>
+            <p>{storyOpen?.txt}</p>
           </li>
           <ul>
-            {story.comments.map((comment, index) => (
+            {storyOpen?.comments.map((comment, index) => (
               <li key={index}>
                 <img src={comment?.by?.imgUrl} alt="Story" />
 
@@ -53,27 +61,23 @@ const PostModal = ({ setIsModalOpen, isModalOpen, story, setChange }) => {
           <div className={styles.footer}>
             <div>
               <ReactionsStory
-                story={story}
+                story={storyOpen}
                 setIsCommentClick={setIsCommentClick}
-                setIsModalOpen={setIsModalOpen}
-                setChange={setChange}
               />
               <p>
                 {likeCount} {likeCount > 1 ? "likes" : "like"}
               </p>
             </div>
             <CommentStory
-              story={story}
+              story={storyOpen}
               isCommentClick={isCommentClick}
-              isModalOpen={isModalOpen}
               focusCommentInput={focusCommentInput}
-              setChange={setChange}
             />
           </div>
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default PostModal;

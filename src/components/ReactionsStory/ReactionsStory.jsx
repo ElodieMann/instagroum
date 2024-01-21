@@ -1,41 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faComment, faPaperPlane, faBookmark } from "@fortawesome/free-regular-svg-icons";
-import { storyService, user } from "../../services/story.service.js";
+import {
+  faHeart,
+  faComment,
+  faPaperPlane,
+  faBookmark,
+} from "@fortawesome/free-regular-svg-icons";
+import { storyService } from "../../services/story.service.js";
 import styles from "./ReactionsStory.module.scss";
+import { useSelector } from "react-redux";
+import { setLike, addToFavorites } from "../../redux/story/index.js";
+import { useDispatch } from "react-redux";
 
-const ReactionsStory = ({ isModalOpen, setIsModalOpen, story, setChange }) => {
-  const isUserLike = story?.likedBy?.some((like) => like._id === user._id);
-  const [liked, setLiked] = useState(isUserLike);
+const ReactionsStory = ({ openModal, story }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const favorites = useSelector((state) => state.story.favorites);
+
+  const isFavorite = favorites.some(fav => fav._id === story._id);
+
+
+  const isUserLike = story?.likedBy?.some(like => like?._id === user?._id);
+
 
   const handleLikeClick = async () => {
+    const userLike = {
+      fullname: user.fullname,
+      imgUrl: user.imgUrl,
+      _id: user._id,
+    };
     try {
-      await storyService.toggleLike(story._id);
-      setLiked(!liked); 
-      setChange(new Date())
+      await storyService.toggleLike(user, story._id);
+      dispatch(setLike({ id: story._id, user: userLike }));
     } catch (error) {
       console.error("Error toggling like:", error);
     }
   };
 
-  const openModal = () => {
-    if (!isModalOpen) {  
-      setIsModalOpen(true);
+  const handleFavClick = async () => {
+    try {
+      await storyService.AddToFavorites(story?._id);
+      dispatch(addToFavorites(story)); // Passer toute l'histoire
+    } catch (error) {
+      console.error(error);
     }
   };
+  
 
   return (
     <div className={styles.reactions}>
       <div>
         <FontAwesomeIcon
           icon={faHeart}
-          style={{ color: liked ? "red" : "inherit" }}
+          style={{ color: isUserLike ? "red" : "inherit" }}
           onClick={handleLikeClick}
         />
         <FontAwesomeIcon icon={faComment} onClick={openModal} />
         <FontAwesomeIcon icon={faPaperPlane} />
       </div>
-      <FontAwesomeIcon icon={faBookmark} />
+      <FontAwesomeIcon
+        icon={faBookmark}
+        onClick={handleFavClick}
+        style={{ color: isFavorite ? "green" : "inherit" }}
+      />
     </div>
   );
 };

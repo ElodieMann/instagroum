@@ -6,48 +6,24 @@ import { utilService } from "./util.service.js";
 
 export const STORAGE_KEY = "stories";
 
-async function initStories() {
+async function getAllStories() {
   try {
-    const stories = await storageService.query(STORAGE_KEY);
+    let stories = await storageService.query(STORAGE_KEY);
+
     if (!stories || stories.length === 0) {
-      utilService.saveToStorage(STORAGE_KEY, predefinedStories);
-      return predefinedStories;
+      stories = predefinedStories;
+      utilService.saveToStorage(STORAGE_KEY, stories);
     }
-    return predefinedStories;
+
+    const sortedStories = stories.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    return sortedStories;
   } catch (e) {
-    console.log(e);
+    console.error("Error fetching stories:", e);
+    throw e;
   }
 }
-
-export const user = {
-  _id: "u101",
-  username: "Elo",
-  password: "Elo",
-  fullname: "Elo Elo",
-  imgUrl:
-    "https://img.freepik.com/vecteurs-premium/profil-avatar-femme-icone-ronde_24640-14042.jpg",
-  following: [
-    {
-      _id: "u106",
-      fullname: "Dob",
-      imgUrl: "http://some-img",
-    },
-  ],
-  followers: [
-    {
-      _id: "u105",
-      fullname: "Bob",
-      imgUrl: "http://some-img",
-    },
-  ],
-  savedStoryIds: ["s104", "s111", "s123"],
-};
-
-async function getAllStories() {
-  initStories();
-  return await storageService.query(STORAGE_KEY);
-}
-
 
 async function getById(storyId) {
   try {
@@ -95,9 +71,8 @@ async function addComment(storyId, newComment) {
   }
 }
 
-async function toggleLike(storyId) {
+async function toggleLike(user, storyId) {
   try {
-
     const userId = {
       _id: user._id,
       fullname: user.fullname,
@@ -130,11 +105,27 @@ async function toggleLike(storyId) {
   }
 }
 
-function getEmptyStory() {
-  
+async function AddToFavorites(storyId) {
+  try {
+    const storyFav = await getById(storyId);
+
+    console.log(storyFav);
+    if (!storyFav) throw new Error("Story not found");
+
+    storyFav.isFavorite = !storyFav.isFavorite;
+    await updateStory(storyFav);
+
+  } catch (error) {
+    console.error("Error adding/removing favorite:", error);
+    throw error;
+  }
+}
+
+function getEmptyStory(user) {
   return {
     _id: utilService.makeId(),
     txt: "",
+    isFavorite: false,
     by: {
       _id: user._id,
       fullname: user.fullname,
@@ -147,9 +138,6 @@ function getEmptyStory() {
   };
 }
 
-
-
-
 export const storyService = {
   getAllStories,
   newStory,
@@ -158,5 +146,6 @@ export const storyService = {
   removeStory,
   addComment,
   toggleLike,
+  AddToFavorites,
   getEmptyStory,
 };

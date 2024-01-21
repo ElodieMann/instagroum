@@ -1,6 +1,6 @@
+@import "../../assets/styles/setup/mixins.scss";
+
 .storyListContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include flex-container(column, center, start, 0px);
   margin: 6% 19%;
 }

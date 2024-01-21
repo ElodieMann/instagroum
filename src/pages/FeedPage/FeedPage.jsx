@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { storyService } from "../../services/story.service.js";
 import StoryList from "../../components/StoryList/StoryList.jsx";
-
+import { useDispatch } from "react-redux";
+import { setStory } from "../../redux/story/index.js";
+import PostModal from "../../components/PostModal /PostModal.jsx";
 
 const FeedPage = () => {
-  const [stories, setStories] = useState([]);
+  const dispatch = useDispatch();
 
-  const [change, setChange] = useState('')
   useEffect(() => {
     getData();
-    
-}, [change]);
+  }, []);
 
-
-const getData = async () => {
-  let data = await storyService.getAllStories();
-  
-  data = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-  setStories(data);
-};
+  const getData = async () => {
+    const stories = await storyService.getAllStories();
+    dispatch(setStory(stories));
+  };
 
   return (
-    <StoryList stories={stories} setChange={setChange}/>
+    <>
+      <StoryList />
+      <PostModal />
+    </>
   );
 };
 

@@ -9,9 +9,11 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { user } from "../../services/story.service.js";
+import { useSelector } from "react-redux";
 
 const SideBar = ({ onShowPostUpload }) => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <div className={styles.sideBarContainer}>
       <h1>Instagroum</h1>

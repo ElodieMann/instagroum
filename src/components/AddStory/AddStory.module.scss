@@ -1,24 +1,15 @@
+@import "../../assets/styles/setup/mixins.scss";
+@import "../../assets/styles/setup/variables.scss";
+
 .modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  @include modal-overlay;
+
   .modal {
-    background: white;
-    border-radius: 8px;
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    overflow: hidden;
+    @include modal-content;
+
     .modalHeader {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      @include flex-container(row, space-between, center, 0px);
+
       padding: 12px 16px;
       border-bottom: 1px solid #dbdbdb;
       background: #f8f8f8;
@@ -46,11 +37,7 @@
     .uploadSection {
       width: 60%;
       border-right: 1px solid grey;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: end;
+      @include flex-container(column, center, center, 0px);
 
       .imagePreview {
         display: block;
@@ -64,8 +51,8 @@
       padding: 16px;
 
       .userInfo {
-        display: flex;
-        align-items: center;
+        @include flex-container(row, start, center, 0px);
+
         margin-bottom: 12px;
 
         .avatar {
@@ -89,6 +76,10 @@
         font-size: 14px;
         height: 100px;
         margin-bottom: 12px;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
   }

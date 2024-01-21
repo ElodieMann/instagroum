@@ -5,6 +5,7 @@ export const predefinedStories = [
       _id: "s1",
       txt: "Best trip ever",
       createdAt: '2024-01-01T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://cdn.futura-sciences.com/buildsv6/images/largeoriginal/d/b/4/db4a1846c7_50188977_homme-nature-sante.jpg",
       by: {
@@ -64,6 +65,7 @@ export const predefinedStories = [
       _id: "s2",
       txt: "Another adventure",
       createdAt: '2024-01-02T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzRaDBXoZpOUmX_WEl7HbFAcV8ZdeTGRMZXA&usqp=CAU",
       by: {
@@ -107,6 +109,7 @@ export const predefinedStories = [
       _id: "s3",
       txt: "Exploring nature",
       createdAt: '2024-01-03T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScsz22YjnYKwtcwHF7nk3TYl42TbPctzAD6Q&usqp=CAU",
       by: {
@@ -127,6 +130,7 @@ export const predefinedStories = [
       _id: "s4",
       txt: "A day at the beach",
       createdAt: '2024-01-04T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6dNOsxa2tOLB2wU_1hL6sjO47cJuWwZBdjg&usqp=CAU",
       by: {
@@ -147,6 +151,7 @@ export const predefinedStories = [
       _id: "s5",
       txt: "Road trip memories",
       createdAt: '2024-01-05T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://www.happybrainscience.com/wp-content/uploads/2017/07/derwent-morning-Cropped.jpg",
       by: {
@@ -190,6 +195,7 @@ export const predefinedStories = [
       _id: "s6",
       txt: "Culinary delights",
       createdAt: '2024-01-06T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqrx7hDogEKzo_LVThxSkO7amO2VNVXC5aMQ&usqp=CAU",
       by: {
@@ -210,6 +216,7 @@ export const predefinedStories = [
       _id: "s7",
       txt: "Wildlife encounter",
       createdAt: '2024-01-07T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/australia/Morning-Mangroves-at-Port-Douglas-QLD_Alan-Barker.jpg?crop=1080%2C0%2C2161%2C2882&wid=675&hei=900&scl=3.2022222222222223",
       by: {
@@ -230,6 +237,7 @@ export const predefinedStories = [
       _id: "s8",
       txt: "Winter wonderland",
       createdAt: '2024-01-08T00:00:00',
+      isFavorite:false,
       imgUrl: "https://i.ytimg.com/vi/IUN664s7N-c/maxresdefault.jpg",
       by: {
         _id: "u108",
@@ -272,6 +280,7 @@ export const predefinedStories = [
       _id: "s9",
       txt: "Artistic creations",
       createdAt: '2024-01-09T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://parade.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkwNTgxMjMyNjM0ODMxOTk3/nature-quotes.jpg",
       by: {
@@ -292,6 +301,7 @@ export const predefinedStories = [
       _id: "s10",
       txt: "Night under the stars",
       createdAt: '2024-01-10T00:00:00',
+      isFavorite:false,
       imgUrl:
         "https://www.iucn.org/sites/default/files/styles/what_we_do_large/public/images-themes/biodiversity-shutterstock_1477256246.jpg.webp?itok=4i9JdtFu",
       by: {

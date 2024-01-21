@@ -1,23 +1,12 @@
+@import "../../assets/styles/setup/mixins.scss";
+@import "../../assets/styles/setup/variables.scss";
+
 .modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
+  @include modal-overlay;
 
   .modalContent {
-    background: #fff;
-    border-radius: 8px;
-    width: 80%;
-    height: 80%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    @include modal-content;
     display: flex;
-   
 
     .modalClose {
       position: absolute;
@@ -60,9 +49,7 @@
 
       li {
         list-style: none;
-        display: flex;
-        align-items: center;
-        gap: 15px;
+        @include flex-container(row, start, center, 15px);
         padding: 10px;
 
         .username {
@@ -71,15 +58,14 @@
       }
 
       .footer {
-        margin-top: auto; 
+        margin-top: auto;
         display: flex;
         flex-direction: column;
 
         > :first-child {
           border-top: 1px solid grey;
           border-bottom: 1px solid grey;
-        padding: 10px;
-
+          padding: 10px;
         }
 
         input {

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styles from "./AddStory.module.scss";
-import {
-  storyService,
-  user as userService,
-} from "../../services/story.service.js";
+import { storyService } from "../../services/story.service.js";
+import { useDispatch, useSelector } from "react-redux";
+import { addStory } from "../../redux/story/index.js";
 
 const AddStory = ({ onClose }) => {
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
   const [caption, setCaption] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
@@ -60,15 +62,16 @@ const AddStory = ({ onClose }) => {
     const imageBase64 = await blobToBase64(selectedFile);
 
     try {
-      const emptyStory = await storyService.getEmptyStory();
+      const emptyStory = await storyService.getEmptyStory(user);
       const newStory = {
         ...emptyStory,
         txt: caption,
         imgUrl: imageBase64,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
       };
 
       await storyService.newStory(newStory);
+      dispatch(addStory(newStory));
       alert("Story added successfully!");
 
       setCaption("");
@@ -107,7 +110,6 @@ const AddStory = ({ onClose }) => {
               />
             ) : (
               <label className={styles.fileInputLabel}>
-          
                 <input
                   type="file"
                   className={styles.fileInput}
@@ -119,8 +121,8 @@ const AddStory = ({ onClose }) => {
           </div>
           <div className={styles.modalContent}>
             <div className={styles.userInfo}>
-              <div className={styles.avatar}></div>
-              <div className={styles.username}>Elo</div>
+              <img className={styles.avatar} src={user.imgUrl} alt="" />
+              <div className={styles.username}>{user.username}</div>
             </div>
             <textarea
               className={styles.captionInput}

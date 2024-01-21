@@ -26,6 +26,10 @@
 
     span {
       font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
@@ -44,6 +48,10 @@
     .allComents {
       font-size: 0.9rem;
       color: $grey;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
     span {
       font-weight: bold;

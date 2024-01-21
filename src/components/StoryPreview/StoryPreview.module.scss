@@ -6,6 +6,11 @@
   padding-bottom: 20px;
   border-bottom: 2px solid $grey-border;
 
+  @media (max-width: 950px) {
+    width: 400px;
+
+  }
+
   .header {
     padding: 16px 0;
 

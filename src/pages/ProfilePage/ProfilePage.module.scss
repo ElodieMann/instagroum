@@ -96,6 +96,8 @@ margin-bottom: 30px;
     background: #fff;
     border: 1px solid #e1e1e1;
     overflow: hidden;
+    z-index: -1;
+
 
     .overlayText {
       @include modal-overlay;

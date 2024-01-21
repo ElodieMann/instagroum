@@ -11,6 +11,7 @@ const AddStory = ({ onClose }) => {
   const [caption, setCaption] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  
 
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);

@@ -45,6 +45,46 @@
         max-height: 300px;
         margin-top: 12px;
         border-radius: 8px;
+
+        &.grayscale {
+          filter: grayscale(100%);
+        }
+      
+        &.sepia {
+          filter: sepia(100%);
+        }
+      
+        &.invert {
+          filter: invert(100%);
+        }
+      
+        &.brightness {
+          filter: brightness(150%);
+        }
+      
+        &.contrast {
+          filter: contrast(200%);
+        }
+      
+        &.saturate {
+          filter: saturate(200%);
+        }
+      
+        &.blur {
+          filter: blur(5px);
+        }
+      
+        &.hueRotate {
+          filter: hue-rotate(90deg);
+        }
+      
+        &.opacity {
+          filter: opacity(50%);
+        }
+      
+        &.dropShadow {
+          filter: drop-shadow(16px 16px 10px gray);
+        }
       }
     }
     .modalContent {

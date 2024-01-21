@@ -3,4 +3,8 @@
 .storyListContainer {
   @include flex-container(column, center, start, 0px);
   margin: 6% 19%;
+  @media (max-width: 950px) {
+    margin: 0;
+    align-items: center;
+  }
 }

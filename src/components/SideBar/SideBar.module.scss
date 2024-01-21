@@ -8,24 +8,52 @@
   @include flex-container(column, start, start, 19px);
   padding: 0 20px;
   border-right: 1px solid rgb(219, 219, 219);
-
   height: 100vh;
+
+  @media (max-width: 750px) {
+    @include flex-container(row, space-between, center, 15px);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid grey;
+  }
   h1 {
     font-family: "Dancing Script", cursive;
     font-size: 2em;
     margin: 30px 0;
+
+    @media (max-width: 950px) {
+      display: none;
+    }
+  }
+
+  h2 {
+    display: none;
+    @media (max-width: 950px) {
+      display: block;
+      padding: 10px 0;
+      font-size: 2rem;
+    }
+    @media (max-width: 750px) {
+      display: none;
+    }
   }
 
   a {
     width: 100%;
     text-decoration: none;
 
+    @media (max-width: 750px) {
+      width: auto;
+    }
   }
   .link {
-
     @include flex-container(row, start, center, 10px);
 
-    padding: 10px 0; 
+    padding: 10px 0;
     color: black;
 
     &:hover {
@@ -48,6 +76,10 @@
     p {
       font-size: 1em;
       margin: 0;
+
+      @media (max-width: 950px) {
+        display: none;
+      }
     }
   }
 }

@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("POSTS");
   const user = useSelector((state) => state.user.user);
-  const stories = useSelector((state) => state.story.story);
+  const stories = useSelector((state) => state.stories.stories);
 
   const userStories = stories.filter((story) => story?.by?._id === user._id);
 

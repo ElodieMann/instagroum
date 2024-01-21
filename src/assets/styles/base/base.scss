@@ -11,6 +11,12 @@
 
     nav {
       width: 17vw;
+
+      @media (max-width: 950px) {
+        width: auto;
+      }
+   
+     
     }
 
     main {

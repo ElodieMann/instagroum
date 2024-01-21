@@ -8,6 +8,6 @@ const ConfigSlice = createSlice({
   reducers: ConfigReducer,
 });
 
-export const { setStory, setLike, setComment, addStory, addToFavorites } = ConfigSlice.actions;
+export const { setStory, setLike, setComment, addStory, setFav } = ConfigSlice.actions;
 
 export default ConfigSlice.reducer;

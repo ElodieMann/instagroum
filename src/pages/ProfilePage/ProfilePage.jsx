@@ -15,7 +15,6 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("POSTS");
   const user = useSelector((state) => state.user.user);
-  console.log("user", user);
   const stories = useSelector((state) => state.story.story);
   const favorites = useSelector((state) => state.story.favorites);
 

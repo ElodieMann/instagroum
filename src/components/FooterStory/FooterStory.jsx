@@ -5,7 +5,7 @@ import ReactionsStory from "../ReactionsStory/ReactionsStory.jsx";
 import CommentStory from "../CommentStory/CommentStory.jsx";
 
 import styles from "./FooterStory.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setOpenModal } from "../../redux/modalStory/index.js";
 
 const FooterStory = ({ story }) => {

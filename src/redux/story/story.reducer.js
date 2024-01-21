@@ -32,16 +32,12 @@ export default {
   addStory: (state, action) => {
     state.story = [action.payload, ...state.story];
   },
-  addToFavorites: (state, action) => {
-    const storyToAdd = action.payload; 
-  
-    const index = state.favorites.findIndex(fav => fav._id === storyToAdd._id);
-  
-    if (index !== -1) {
-      state.favorites = state.favorites.filter(fav => fav._id !== storyToAdd._id);
-    } else {
-      state.favorites = [...state.favorites, storyToAdd];
-    }
-  }
-  
+  setFav: (state, action) => {
+    state.story = state.story.map((st) => {
+      if (st._id === action.payload.id) {
+        return { ...st, isFavorite: !action.payload.isFavorite };
+      }
+      return st;
+    });
+  },
 };

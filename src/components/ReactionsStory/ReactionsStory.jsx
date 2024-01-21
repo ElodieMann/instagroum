@@ -9,19 +9,13 @@ import {
 import { storyService } from "../../services/story.service.js";
 import styles from "./ReactionsStory.module.scss";
 import { useSelector } from "react-redux";
-import { setLike, addToFavorites } from "../../redux/story/index.js";
+import { setLike, setFav } from "../../redux/story/index.js";
 import { useDispatch } from "react-redux";
 
 const ReactionsStory = ({ openModal, story }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const favorites = useSelector((state) => state.story.favorites);
-
-  const isFavorite = favorites.some(fav => fav._id === story._id);
-
-
-  const isUserLike = story?.likedBy?.some(like => like?._id === user?._id);
-
+  const isUserLike = story?.likedBy?.some((like) => like?._id === user?._id);
 
   const handleLikeClick = async () => {
     const userLike = {
@@ -40,12 +34,11 @@ const ReactionsStory = ({ openModal, story }) => {
   const handleFavClick = async () => {
     try {
       await storyService.AddToFavorites(story?._id);
-      dispatch(addToFavorites(story)); // Passer toute l'histoire
+      dispatch(setFav({ id: story?._id, isFavorite: story?.isFavorite }));
     } catch (error) {
       console.error(error);
     }
   };
-  
 
   return (
     <div className={styles.reactions}>
@@ -61,7 +54,7 @@ const ReactionsStory = ({ openModal, story }) => {
       <FontAwesomeIcon
         icon={faBookmark}
         onClick={handleFavClick}
-        style={{ color: isFavorite ? "green" : "inherit" }}
+        style={{ color: story.isFavorite ? "red" : "inherit" }}
       />
     </div>
   );

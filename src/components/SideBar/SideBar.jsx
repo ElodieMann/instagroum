@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./SideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -10,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import styles from "./SideBar.module.scss";
 
 const SideBar = ({ onShowPostUpload }) => {
   const user = useSelector((state) => state.user.user);

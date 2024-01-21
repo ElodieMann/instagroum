@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { storyService } from "../../services/story.service.js";
-
 import { utilService } from "../../services/util.service.js";
-import styles from "./CommentStory.module.scss";
-import { setComment } from "../../redux/story/index.js";
-
+import { setComment } from "../../redux/stories/index.js";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./CommentStory.module.scss";
 
 const CommentStory = ({ story }) => {
   const user = useSelector((state) => state.user.user);
@@ -32,7 +30,7 @@ const CommentStory = ({ story }) => {
 
       await storyService.addComment(story._id, newComment);
       dispatch(setComment({ id: story._id, comment: newComment }));
- 
+
       setCommentText("");
     }
   };

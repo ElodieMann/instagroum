@@ -3,7 +3,6 @@
 
 .modalOverlay {
   @include modal-overlay;
-
   .modalContent {
     @include modal-content;
     display: flex;

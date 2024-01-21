@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-
-import PostModal from "../PostModal /PostModal.jsx";
+import React from "react";
 import ReactionsStory from "../ReactionsStory/ReactionsStory.jsx";
 import CommentStory from "../CommentStory/CommentStory.jsx";
-
-import styles from "./FooterStory.module.scss";
 import { useDispatch } from "react-redux";
 import { setOpenModal } from "../../redux/modalStory/index.js";
+import styles from "./FooterStory.module.scss";
 
 const FooterStory = ({ story }) => {
   const likeCount = story?.likedBy?.length;

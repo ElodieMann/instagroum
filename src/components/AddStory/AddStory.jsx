@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import styles from "./AddStory.module.scss";
 import { storyService } from "../../services/story.service.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addStory } from "../../redux/story/index.js";
+import { addStory } from "../../redux/stories/index.js";
+import styles from "./AddStory.module.scss";
 
 const AddStory = ({ onClose }) => {
   const user = useSelector((state) => state.user.user);

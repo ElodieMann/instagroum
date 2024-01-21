@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styles from "./PostModal.module.scss";
+import React from "react";
 import ReactionsStory from "../ReactionsStory/ReactionsStory.jsx";
 import CommentStory from "../CommentStory/CommentStory.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setOpenModal } from "../../redux/modalStory/index.js";
+import styles from "./PostModal.module.scss";
 
 const PostModal = () => {
   const dispatch = useDispatch();
@@ -11,15 +11,9 @@ const PostModal = () => {
   const { open, storyOpen } = useSelector(
     (state) => state.modalStory.isModalOpen
   );
-
-  const [shouldFocusCommentInput, setShouldFocusCommentInput] = useState(false);
-
-  const [isCommentClick, setIsCommentClick] = useState(false);
   const likeCount = storyOpen?.likedBy?.length;
 
-  const focusCommentInput = () => {
-    setShouldFocusCommentInput(true);
-  };
+ 
   const closeModal = () => {
     dispatch(
       setOpenModal({
@@ -30,7 +24,7 @@ const PostModal = () => {
   };
 
   return open ? (
-    <div className={styles.modalOverlay} onClick={closeModal}>
+    <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <button className={styles.modalClose} onClick={closeModal}>
           &times;
@@ -62,7 +56,6 @@ const PostModal = () => {
             <div>
               <ReactionsStory
                 story={storyOpen}
-                setIsCommentClick={setIsCommentClick}
               />
               <p>
                 {likeCount} {likeCount > 1 ? "likes" : "like"}
@@ -70,8 +63,6 @@ const PostModal = () => {
             </div>
             <CommentStory
               story={storyOpen}
-              isCommentClick={isCommentClick}
-              focusCommentInput={focusCommentInput}
             />
           </div>
         </div>

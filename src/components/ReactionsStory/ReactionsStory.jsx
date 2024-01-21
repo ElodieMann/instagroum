@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -7,12 +7,13 @@ import {
   faBookmark,
 } from "@fortawesome/free-regular-svg-icons";
 import { storyService } from "../../services/story.service.js";
-import styles from "./ReactionsStory.module.scss";
 import { useSelector } from "react-redux";
-import { setLike, setFav } from "../../redux/story/index.js";
+import { setLike, setFav } from "../../redux/stories/index.js";
 import { useDispatch } from "react-redux";
+import { setOpenModal } from "../../redux/modalStory/index.js";
+import styles from "./ReactionsStory.module.scss";
 
-const ReactionsStory = ({ openModal, story }) => {
+const ReactionsStory = ({ story }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const isUserLike = story?.likedBy?.some((like) => like?._id === user?._id);
@@ -38,6 +39,15 @@ const ReactionsStory = ({ openModal, story }) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const openModal = () => {
+    dispatch(
+      setOpenModal({
+        open: true,
+        storyOpen: story,
+      })
+    );
   };
 
   return (

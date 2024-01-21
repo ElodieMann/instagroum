@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialState } from "./story.state";
-import ConfigReducer from "./story.reducer";
+import { initialState } from "./stories.state";
+import ConfigReducer from "./stories.reducer";
 
 const ConfigSlice = createSlice({
-  name: "story",
+  name: "stories",
   initialState,
   reducers: ConfigReducer,
 });

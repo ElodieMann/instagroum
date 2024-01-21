@@ -1,9 +1,9 @@
 export default {
   setStory: (state, action) => {
-    state.story = action.payload;
+    state.stories = action.payload;
   },
   setLike: (state, action) => {
-    state.story = state.story.map((st) => {
+    state.stories = state.stories.map((st) => {
       if (st._id === action.payload.id) {
         const likedBy = [...st.likedBy];
         const userIndex = likedBy.findIndex(
@@ -22,7 +22,7 @@ export default {
     });
   },
   setComment: (state, action) => {
-    state.story = state.story.map((st) => {
+    state.stories = state.stories.map((st) => {
       if (st._id === action.payload.id) {
         return { ...st, comments: [...st.comments, action.payload.comment] };
       }
@@ -30,10 +30,10 @@ export default {
     });
   },
   addStory: (state, action) => {
-    state.story = [action.payload, ...state.story];
+    state.stories = [action.payload, ...state.stories];
   },
   setFav: (state, action) => {
-    state.story = state.story.map((st) => {
+    state.stories = state.stories.map((st) => {
       if (st._id === action.payload.id) {
         return { ...st, isFavorite: !action.payload.isFavorite };
       }

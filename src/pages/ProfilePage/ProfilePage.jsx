@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PostModal from "../../components/PostModal /PostModal.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -6,20 +7,20 @@ import {
   faHeart,
   faComment,
 } from "@fortawesome/free-solid-svg-icons";
-import styles from "./ProfilePage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import PostModal from "../../components/PostModal /PostModal.jsx";
 import { setOpenModal } from "../../redux/modalStory/index.js";
+import styles from "./ProfilePage.module.scss";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("POSTS");
   const user = useSelector((state) => state.user.user);
   const stories = useSelector((state) => state.story.story);
-  const favorites = useSelector((state) => state.story.favorites);
 
   const userStories = stories.filter((story) => story?.by?._id === user._id);
-  console.log(userStories);
+
+  const favStories = stories.filter(story => story.isFavorite)
+  console.log(favStories);
 
   const openModal = (storyOpen) => {
     dispatch(
@@ -82,8 +83,8 @@ const ProfilePage = () => {
           ))}
 
         {activeTab === "SAVED" &&
-          favorites.map((story) => (
-            <div key={story._id} className={styles.gridItem}>
+          favStories.map((story) => (
+            <div key={story._id} className={styles.gridItem} onClick={() => openModal(story)}>
               <img src={story.imgUrl} alt={story.txt} />
               <div className={styles.overlayText}>
                 <p>

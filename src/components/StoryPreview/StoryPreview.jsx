@@ -1,9 +1,8 @@
 import React from "react";
+import FooterStory from "../FooterStory/FooterStory.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
-
 import { utilService } from "../../services/util.service.js";
-import FooterStory from "../FooterStory/FooterStory.jsx";
 import styles from "./StoryPreview.module.scss";
 
 const StoryPreview = ({ story }) => {

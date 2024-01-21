@@ -1,10 +1,10 @@
 import React from "react";
-import styles from './StoryList.module.scss'
 import StoryPreview from "../StoryPreview/StoryPreview.jsx";
 import { useSelector } from "react-redux";
+import styles from './StoryList.module.scss'
 
 const StoryList = () => {
-const stories = useSelector((state) => state.story.story);
+const stories = useSelector((state) => state.stories.stories);
   return (
     <div className={styles.storyListContainer}>
       {stories?.length > 0 ? (

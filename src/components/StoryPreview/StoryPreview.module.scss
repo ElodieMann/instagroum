@@ -33,7 +33,7 @@
 
           div {
             @include flex-container(row, start, center, 8px);
-            color: grey;
+            color: $grey;
             font-size: 14px;
             > :first-child {
               font-size: 5px;

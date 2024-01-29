@@ -7,21 +7,21 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   const [showPostUpload, setShowPostUpload] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
+  
   return (
     <Router>
       <nav>
-      <SideBar onShowPostUpload={() => setShowPostUpload(true)} />
-
+        <SideBar onShowPostUpload={() => setShowPostUpload(true)} />
       </nav>
       {showPostUpload && <AddStory onClose={() => setShowPostUpload(false)} />}
-        <main>
-      <Routes>
-
-        <Route exact path="/" element={<FeedPage />} />
-        <Route exact path="/profile" element={<ProfilePage />} />
-      </Routes>
-        </main>
+      <main>
+        <Routes>
+          <Route exact path="/" element={<FeedPage />} />
+          <Route exact path="/profile" element={<ProfilePage />} />
+        </Routes>
+      </main>
     </Router>
   );
 }

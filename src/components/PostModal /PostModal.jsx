@@ -1,48 +1,31 @@
 import React from "react";
 import ReactionsStory from "../ReactionsStory/ReactionsStory.jsx";
 import CommentStory from "../CommentStory/CommentStory.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { setOpenModal } from "../../redux/modalStory/index.js";
 import styles from "./PostModal.module.scss";
 
-const PostModal = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const { open, storyOpen } = useSelector(
-    (state) => state.modalStory.isModalOpen
-  );
-  const likeCount = storyOpen?.likedBy?.length;
+const PostModal = ({ display, story, closeModal }) => {
+  const likeCount = story?.likedBy?.length;
 
- 
-  const closeModal = () => {
-    dispatch(
-      setOpenModal({
-        open: false,
-        storyOpen: {},
-      })
-    );
-  };
-
-  return open ? (
+  return display ? (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <button className={styles.modalClose} onClick={closeModal}>
           &times;
         </button>
-        <img src={storyOpen?.imgUrl} alt="Story" />
+        <img className={styles.imgStory} src={story?.imgUrl} alt="Story" />
         <div className={styles.rightSide}>
           <div className={styles.user}>
-            <img src={user?.imgUrl} alt="Story" />
-            <p>{user?.username}</p>
+            <img src={story?.by?.imgUrl} alt="Story" />
+            <p>{story?.by?.fullname}</p>
           </div>
           <li>
-            <img src={user.imgUrl} alt="Story" />
+            <img src={story?.by?.imgUrl} alt="Story" />
 
-            <p>{user?.username}</p>
-            <p>{storyOpen?.txt}</p>
+            <p>{story?.by?.fullname}</p>
+            <p>{story?.txt}</p>
           </li>
           <ul>
-            {storyOpen?.comments.map((comment, index) => (
+            {story?.comments?.map((comment, index) => (
               <li key={index}>
                 <img src={comment?.by?.imgUrl} alt="Story" />
 
@@ -54,16 +37,12 @@ const PostModal = () => {
 
           <div className={styles.footer}>
             <div>
-              <ReactionsStory
-                story={storyOpen}
-              />
+              <ReactionsStory story={story} />
               <p>
                 {likeCount} {likeCount > 1 ? "likes" : "like"}
               </p>
             </div>
-            <CommentStory
-              story={storyOpen}
-            />
+            <CommentStory story={story} />
           </div>
         </div>
       </div>

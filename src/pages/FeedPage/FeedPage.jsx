@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import StoryList from "../../components/StoryList/StoryList.jsx";
-import PostModal from "../../components/PostModal /PostModal.jsx";
 import { storyService } from "../../services/story.service.js";
 import { useDispatch } from "react-redux";
 import { setStory } from "../../redux/stories/index.js";
@@ -17,12 +16,7 @@ const FeedPage = () => {
     dispatch(setStory(stories));
   };
 
-  return (
-    <>
-      <StoryList />
-      <PostModal />
-    </>
-  );
+  return <StoryList />;
 };
 
 export default FeedPage;

@@ -28,7 +28,7 @@ const CommentStory = ({ story }) => {
         likedBy: [],
       };
 
-      await storyService.addComment(story._id, newComment);
+      await storyService.addComment(story?._id, newComment);
       dispatch(setComment({ id: story._id, comment: newComment }));
 
       setCommentText("");

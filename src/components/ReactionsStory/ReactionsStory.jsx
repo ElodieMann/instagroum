@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -11,12 +11,14 @@ import { useSelector } from "react-redux";
 import { setLike, setFav } from "../../redux/stories/index.js";
 import { useDispatch } from "react-redux";
 import { setOpenModal } from "../../redux/modalStory/index.js";
+import PostModal from "../../components/PostModal /PostModal.jsx";
 import styles from "./ReactionsStory.module.scss";
 
 const ReactionsStory = ({ story }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const isUserLike = story?.likedBy?.some((like) => like?._id === user?._id);
+  const [open, setOpen] = useState(false);
 
   const handleLikeClick = async () => {
     const userLike = {
@@ -42,31 +44,33 @@ const ReactionsStory = ({ story }) => {
   };
 
   const openModal = () => {
-    dispatch(
-      setOpenModal({
-        open: true,
-        storyOpen: story,
-      })
-    );
+    setOpen(true);
+  };
+  
+  const closeModal = () => {
+    setOpen(false);
   };
 
   return (
-    <div className={styles.reactions}>
-      <div>
+    <>
+      <div className={styles.reactions}>
+        <div>
+          <FontAwesomeIcon
+            icon={faHeart}
+            style={{ color: isUserLike ? "red" : "inherit" }}
+            onClick={handleLikeClick}
+          />
+          <FontAwesomeIcon icon={faComment} onClick={openModal} />
+          <FontAwesomeIcon icon={faPaperPlane} />
+        </div>
         <FontAwesomeIcon
-          icon={faHeart}
-          style={{ color: isUserLike ? "red" : "inherit" }}
-          onClick={handleLikeClick}
+          icon={faBookmark}
+          onClick={handleFavClick}
+          style={{ color: story?.isFavorite ? "red" : "inherit" }}
         />
-        <FontAwesomeIcon icon={faComment} onClick={openModal} />
-        <FontAwesomeIcon icon={faPaperPlane} />
       </div>
-      <FontAwesomeIcon
-        icon={faBookmark}
-        onClick={handleFavClick}
-        style={{ color: story.isFavorite ? "red" : "inherit" }}
-      />
-    </div>
+      <PostModal story={story} closeModal={closeModal} display={open} />
+    </>
   );
 };
 

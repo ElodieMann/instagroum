@@ -49,3 +49,8 @@
   margin: auto;
   overflow: hidden;
 }
+@mixin logo {
+  font-family: "Dancing Script", cursive;
+  font-size: 2em;
+  margin: 30px 0;
+}

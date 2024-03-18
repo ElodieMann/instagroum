@@ -7,7 +7,7 @@ import {
   faHeart,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";  
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,12 +16,14 @@ import styles from "./SideBar.module.scss";
 const SideBar = ({ onShowPostUpload }) => {
   const user = useSelector((state) => state.user.user);
 
-  return (
+
+  return user._id ? (
     <div className={styles.sideBarContainer}>
       <div>
-
-      <h1>Instagroum</h1>
-      <h2><FontAwesomeIcon icon={faInstagram} /></h2>
+        <h1>Instagroum</h1>
+        <h2>
+          <FontAwesomeIcon icon={faInstagram} />
+        </h2>
       </div>
 
       <Link to={"/"}>
@@ -59,7 +61,7 @@ const SideBar = ({ onShowPostUpload }) => {
         </div>
       </Link>
     </div>
-  );
+  ) : null
 };
 
 export default SideBar;

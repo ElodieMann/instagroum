@@ -1,0 +1,39 @@
+@import "../../assets/styles/setup/mixins.scss";
+@import "../../assets/styles/setup/variables.scss";
+
+.loginSignupContainer {
+    width: 300px;
+    margin: auto;
+    border: solid 1px #DBDBDB;
+    padding: 20px;
+  }
+  
+  .title {
+    @include logo;
+    text-align: center;
+  }
+  
+  .inputField {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: rgba(128, 128, 128, 0.254);
+  }
+  
+  .button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0095F6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .divider {
+    text-align: center;
+    margin: 20px 0;
+  }
+  

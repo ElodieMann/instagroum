@@ -21,9 +21,7 @@
     border-top: 1px solid grey;
   }
   h1 {
-    font-family: "Dancing Script", cursive;
-    font-size: 2em;
-    margin: 30px 0;
+    @include logo;
 
     @media (max-width: 950px) {
       display: none;

@@ -25,7 +25,7 @@ async function query(entityType) {
   
   async function post(entityType, newEntity) {
     try {
-      const entities = await query(entityType);
+      const entities = await query(entityType) || [];
       entities.push(newEntity);
       utilService.saveToStorage(entityType, entities);
       return newEntity;

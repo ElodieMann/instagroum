@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeart,
+  faHeart as solidHeart,
+  faBookmark as solidBookmark,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as regularHeart,
   faComment,
   faPaperPlane,
-  faBookmark,
+  faBookmark as regularBookmark,
 } from "@fortawesome/free-regular-svg-icons";
 import { storyService } from "../../services/story.service.js";
 import { useSelector } from "react-redux";
@@ -46,7 +50,7 @@ const ReactionsStory = ({ story }) => {
   const openModal = () => {
     setOpen(true);
   };
-  
+
   const closeModal = () => {
     setOpen(false);
   };
@@ -56,17 +60,20 @@ const ReactionsStory = ({ story }) => {
       <div className={styles.reactions}>
         <div>
           <FontAwesomeIcon
-            icon={faHeart}
-            style={{ color: isUserLike ? "red" : "inherit" }}
+            icon={isUserLike ? solidHeart : regularHeart}
             onClick={handleLikeClick}
+            style={{
+              color: isUserLike ? "red" : "inherit",
+            }}
           />
+
           <FontAwesomeIcon icon={faComment} onClick={openModal} />
           <FontAwesomeIcon icon={faPaperPlane} />
         </div>
         <FontAwesomeIcon
-          icon={faBookmark}
+          icon={story?.isFavorite ? solidBookmark : regularBookmark}
           onClick={handleFavClick}
-          style={{ color: story?.isFavorite ? "red" : "inherit" }}
+          // style={{ color: story?.isFavorite ? "black" : "inherit" }}
         />
       </div>
       <PostModal story={story} closeModal={closeModal} display={open} />

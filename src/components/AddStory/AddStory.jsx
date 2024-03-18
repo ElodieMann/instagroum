@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { storyService } from "../../services/story.service.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addStory } from "../../redux/stories/index.js";
+import icon from "../../assets/img/icon.jpg";
+
 import styles from "./AddStory.module.scss";
 
 const AddStory = ({ onClose }) => {
   const user = useSelector((state) => state.user.user);
+  console.log('====================================');
+  console.log(user, 'us');
+  console.log('====================================');
   const dispatch = useDispatch();
 
   const [caption, setCaption] = useState("");
@@ -103,6 +108,10 @@ const AddStory = ({ onClose }) => {
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           >
+            <div className={styles.icon}>
+            <img src={icon} alt="" />
+          </div>
+
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -116,6 +125,8 @@ const AddStory = ({ onClose }) => {
                   className={styles.fileInput}
                   onChange={handleFileChange}
                   accept="image/*,video/*"
+                  placeholder="Select image or video"
+
                 />
               </label>
             )}

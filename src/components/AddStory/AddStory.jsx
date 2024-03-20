@@ -8,9 +8,7 @@ import styles from "./AddStory.module.scss";
 
 const AddStory = ({ onClose }) => {
   const user = useSelector((state) => state.user.user);
-  console.log('====================================');
-  console.log(user, 'us');
-  console.log('====================================');
+
   const dispatch = useDispatch();
 
   const [caption, setCaption] = useState("");

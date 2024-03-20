@@ -9,6 +9,7 @@
   padding: 0 20px;
   border-right: 1px solid rgb(219, 219, 219);
   height: 100vh;
+  z-index: 1000;
 
   @media (max-width: 750px) {
     @include flex-container(row, space-between, center, 15px);

@@ -22,24 +22,39 @@ async function getAllUsers() {
 
 async function verifyUser(username, password) {
   const users = await getAllUsers();
-  const user = users.find(user => user.username === username && user.password === password);
+  const user = users.find(
+    (user) => user.username === username && user.password === password
+  );
   return user || null;
 }
 
 async function addUser(newUser) {
-    try {
-      await storageService.post(STORAGE_KEY, newUser); // Ajoute le nouvel utilisateur au localStorage
-      console.log('Utilisateur ajouté avec succès:', newUser);
-    } catch (error) {
-      console.error("Erreur lors de l'ajout de l'utilisateur :", error);
-      throw error;
-    }
+  try {
+    await storageService.post(STORAGE_KEY, newUser);
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-  
+}
+
+async function updateUser(updatedUser) {
+  try {
+    const users = await getAllUsers();
+    const index = users.findIndex((user) => user._id === updatedUser._id);
+    if (index === -1) throw new Error("Utilisateur non trouvé");
+
+    users[index] = updatedUser;
+    await storageService.put(STORAGE_KEY, users);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 export const userService = {
   getAllUsers,
   emptyUser,
   verifyUser,
   addUser,
+  updateUser,
 };

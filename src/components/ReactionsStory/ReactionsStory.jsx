@@ -73,7 +73,6 @@ const ReactionsStory = ({ story }) => {
         <FontAwesomeIcon
           icon={story?.isFavorite ? solidBookmark : regularBookmark}
           onClick={handleFavClick}
-          // style={{ color: story?.isFavorite ? "black" : "inherit" }}
         />
       </div>
       <PostModal story={story} closeModal={closeModal} display={open} />
